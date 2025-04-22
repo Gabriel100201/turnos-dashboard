@@ -26,7 +26,7 @@ const getUsers = <TData = AxiosResponse<Usuario[]>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/users`,options
+      `http://localhost:5000/api/v1/users`,options
     );
   }
 
@@ -37,7 +37,7 @@ const postAuth = <TData = AxiosResponse<PostAuth200>>(
     postAuthBody: PostAuthBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/auth`,
+      `http://localhost:5000/api/v1/auth`,
       postAuthBody,options
     );
   }
@@ -49,7 +49,7 @@ const getUsersMe = <TData = AxiosResponse<Usuario>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/users/me`,options
+      `http://localhost:5000/api/v1/users/me`,options
     );
   }
 
@@ -60,7 +60,7 @@ const patchUsersMe = <TData = AxiosResponse<Usuario>>(
     patchUsersMeBody: PatchUsersMeBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.patch(
-      `/users/me`,
+      `http://localhost:5000/api/v1/users/me`,
       patchUsersMeBody,options
     );
   }
@@ -72,7 +72,7 @@ const getConsultorios = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/consultorios`,options
+      `http://localhost:5000/api/v1/consultorios`,options
     );
   }
 
@@ -83,7 +83,7 @@ const postConsultorios = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/consultorios`,undefined,options
+      `http://localhost:5000/api/v1/consultorios`,undefined,options
     );
   }
 
@@ -94,7 +94,7 @@ const getConsultoriosId = <TData = AxiosResponse<void>>(
     id: number, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/consultorios/${id}`,options
+      `http://localhost:5000/api/v1/consultorios/${id}`,options
     );
   }
 
@@ -105,7 +105,7 @@ const postConsultoriosIdInvitar = <TData = AxiosResponse<void>>(
     id: number, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/consultorios/${id}/invitar`,undefined,options
+      `http://localhost:5000/api/v1/consultorios/${id}/invitar`,undefined,options
     );
   }
 
@@ -116,7 +116,7 @@ const getConsultoriosIdProfesionales = <TData = AxiosResponse<void>>(
     id: number, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/consultorios/${id}/profesionales`,options
+      `http://localhost:5000/api/v1/consultorios/${id}/profesionales`,options
     );
   }
 
@@ -127,7 +127,7 @@ const getProfesionales = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/profesionales`,options
+      `http://localhost:5000/api/v1/profesionales`,options
     );
   }
 
@@ -138,7 +138,7 @@ const postProfesionales = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/profesionales`,undefined,options
+      `http://localhost:5000/api/v1/profesionales`,undefined,options
     );
   }
 
@@ -149,7 +149,7 @@ const getProfesionalesId = <TData = AxiosResponse<void>>(
     id: number, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/profesionales/${id}`,options
+      `http://localhost:5000/api/v1/profesionales/${id}`,options
     );
   }
 
@@ -160,7 +160,7 @@ const postRegister = <TData = AxiosResponse<void>>(
     usuario: Usuario, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/register`,
+      `http://localhost:5000/api/v1/register`,
       usuario,options
     );
   }
@@ -172,7 +172,7 @@ const getDisponibilidadDias = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/disponibilidad/dias`,options
+      `http://localhost:5000/api/v1/disponibilidad/dias`,options
     );
   }
 
@@ -183,7 +183,7 @@ const postDisponibilidadDias = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/disponibilidad/dias`,undefined,options
+      `http://localhost:5000/api/v1/disponibilidad/dias`,undefined,options
     );
   }
 
@@ -194,7 +194,7 @@ const postDisponibilidadHorarios = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/disponibilidad/horarios`,undefined,options
+      `http://localhost:5000/api/v1/disponibilidad/horarios`,undefined,options
     );
   }
 
@@ -205,7 +205,7 @@ const getDisponibilidadHorariosDiaId = <TData = AxiosResponse<void>>(
     diaId: number, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/disponibilidad/horarios/${diaId}`,options
+      `http://localhost:5000/api/v1/disponibilidad/horarios/${diaId}`,options
     );
   }
 
@@ -216,7 +216,7 @@ const getTurnosDisponibles = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/turnos/disponibles`,options
+      `http://localhost:5000/api/v1/turnos/disponibles`,options
     );
   }
 
@@ -227,7 +227,7 @@ const getReservas = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/reservas`,options
+      `http://localhost:5000/api/v1/reservas`,options
     );
   }
 
@@ -238,7 +238,7 @@ const postReservas = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/reservas`,undefined,options
+      `http://localhost:5000/api/v1/reservas`,undefined,options
     );
   }
 
@@ -249,7 +249,7 @@ const getReservasProfesional = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/reservas/profesional`,options
+      `http://localhost:5000/api/v1/reservas/profesional`,options
     );
   }
 
@@ -260,7 +260,7 @@ const patchReservasIdCancelar = <TData = AxiosResponse<void>>(
     id: number, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.patch(
-      `/reservas/${id}/cancelar`,undefined,options
+      `http://localhost:5000/api/v1/reservas/${id}/cancelar`,undefined,options
     );
   }
 

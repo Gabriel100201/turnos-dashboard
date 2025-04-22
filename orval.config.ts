@@ -5,16 +5,22 @@ export default {
     output: {
       target: './src/api/generated.ts',
       schemas: './src/api/schemas',
-      client: {
-        name: 'axios',
-        customImport: 'import api from "@/api/axios"',
-        override: {
+      client: 'axios',
+      baseUrl: 'http://localhost:5000/api/v1',
+    },
+    override: {
+      mutator: {
+        path: './src/api/api.axios.ts',
+        name: 'api',
+      },
+      operations: {
+        default: {
           mutator: {
-            path: './src/api/axios.ts',
-            name: 'api'
-          }
-        }
-      }
+            path: './src/api/api.axios.ts',
+            name: 'api',
+          },
+        },
+      },
     },
   },
-}
+};

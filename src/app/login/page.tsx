@@ -1,74 +1,80 @@
-"use client"
+'use client';
 
-import type React from "react"
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { getAPITurnosOnline } from '@/api/generated';
+import { saveToken } from '@/auth/auth.utils';
+import { useAuth } from '@/auth/auth.context';
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { login } from "@/lib/auth-action"
+const api = getAPITurnosOnline();
 
 export default function LoginPage() {
-  const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
+  const router = useRouter();
+  const { login } = useAuth();
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setIsLoading(true)
-    setError("")
+  const [correo, setCorreo] = useState('');
+  const [contrasena, setContrasena] = useState('');
+  const [error, setError] = useState('');
 
-    const formData = new FormData(event.currentTarget)
-    const email = formData.get("email") as string
-    const password = formData.get("password") as string
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
 
     try {
-      const result = await login(email, password)
-      console.log(result);
-      if (result.success) {
-        router.push("/dashboard")
-        router.refresh()
-      } else {
-        setError(result.error || "Failed to login")
+      const res = await api.postAuth({ correo, contrasena });
+      const token = res.data.token;
+      if (!token) {
+        setError('No se recibió un token de autenticación');
+        return;
       }
-    } catch (error) {
-      console.log(error);
-      setError("An unexpected error occurred")
-    } finally {
-      setIsLoading(false)
+      saveToken(token);
+      login(token);
+      router.push('/dashboard');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      setError('Credenciales inválidas');
     }
-  }
+  };
 
   return (
-    <div className="flex flex-col justify-center items-center p-4 min-h-screen">
-      <div className="space-y-8 bg-card shadow-md p-6 border rounded-lg w-full max-w-md">
-        <div className="text-center">
-          <h1 className="font-bold text-3xl">Login</h1>
-          <p className="mt-2 text-muted-foreground">Ingrese sus credenciales a continuación</p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded shadow-md w-full max-w-sm space-y-4"
+      >
+        <h1 className="text-2xl font-bold text-center">Iniciar sesión</h1>
+
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Email</label>
+          <input
+            type="correo"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+            className="mt-1 w-full border rounded px-3 py-2"
+            required
+          />
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" name="email" type="email" placeholder="nombre@ejemplo.com" required disabled={isLoading} />
-          </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Contraseña</label>
+          <input
+            type="password"
+            value={contrasena}
+            onChange={(e) => setContrasena(e.target.value)}
+            className="mt-1 w-full border rounded px-3 py-2"
+            required
+          />
+        </div>
 
-          <div className="space-y-2">
-            <div className="flex justify-between items-center">
-              <Label htmlFor="password">Contraseña</Label>
-            </div>
-            <Input id="password" name="password" type="password" placeholder="••••••••" required disabled={isLoading} />
-          </div>
-
-          {error && <div className="bg-destructive/15 p-3 rounded-md text-destructive text-sm">{error}</div>}
-
-          <Button type="submit" variant={"outline"} className="w-full hover:cursor-pointer" disabled={isLoading}>
-            {isLoading ? "Iniciando Sesión..." : "Ingresar"}
-          </Button>
-        </form>
-      </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+        >
+          Ingresar
+        </button>
+      </form>
     </div>
-  )
+  );
 }
-
